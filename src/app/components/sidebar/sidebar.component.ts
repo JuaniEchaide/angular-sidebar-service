@@ -2,11 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SidebarModule } from 'primeng/sidebar';
 import { SidebarService } from '../../services/sidebar.service';
+import { ClientSearchComponent } from '../client-search/client-search.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [SidebarModule],
+  imports: [SidebarModule, ClientSearchComponent, DropdownModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })

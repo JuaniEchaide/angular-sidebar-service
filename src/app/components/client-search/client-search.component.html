@@ -1,0 +1,19 @@
+<div class="flex flex-row">
+  <div class="input-container flex flex-row">
+    <input type="text" pInputText formControlName="input" />
+    <p-button pButton label="Buscar" (onClick)="onSearch()"></p-button>
+  </div>
+  <div formcontrolGroupName="searchForm" class="flex flex-column align-items-center justify-content-center">
+    <p-dropdown formControlName="category"
+    [options]="categoryOptions"/>
+    <p-dropdown formControlName="branch"    
+    [options]="branchOptions"/>
+    <p-dropdown formControlName="activity"
+    [options]="activityOptions"/>
+  </div>
+  <hr>
+  <div class="input-container flex flex-row">
+    <p-button pButton label="Aceptar" (onClick)="onSearch()"></p-button>
+    <p-button pButton label="Cancelar" (onClick)="onCancelButton()"></p-button>
+  </div>
+</div>
