@@ -2,12 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SidebarService } from '../../services/sidebar.service';
 import { ButtonModule } from 'primeng/button';
-import { SidebarModule } from 'primeng/sidebar';
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+
 
 @Component({
   selector: 'app-home-screen',
   standalone: true,
-  imports: [ButtonModule, SidebarModule],
+  imports: [ButtonModule, SidebarComponent],
   templateUrl: './home-screen.component.html',
   styleUrls: ['./home-screen.component.scss']
 })
