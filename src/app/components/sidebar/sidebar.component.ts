@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SidebarModule } from 'primeng/sidebar';
 import { SidebarService } from '../../services/sidebar.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,13 +10,26 @@ import { SidebarService } from '../../services/sidebar.service';
     SidebarModule
   ],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss'
+  styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent {
-  #sidebarService = inject(SidebarService);
-  public isOpen = this.#sidebarService.getState().isOpen;
+export class SidebarComponent implements OnInit, OnDestroy {
+  isOpen: boolean = false;
+  private sidebarSubscription!: Subscription;
 
-  public openHandler() {
-    this.#sidebarService.setOpen(!this.isOpen);
+  constructor(private sidebarService: SidebarService) {}
+
+  ngOnInit() {
+    this.isOpen = this.sidebarService.getState().isOpen;
+    this.sidebarSubscription = this.sidebarService.stateChanged.subscribe(state => {
+      this.isOpen = state.isOpen;
+    });
+  }
+
+  ngOnDestroy() {
+    this.sidebarSubscription.unsubscribe();
+  }
+
+  toggleSidebar() {
+    this.sidebarService.toggleSidebar(!this.isOpen);
   }
 }

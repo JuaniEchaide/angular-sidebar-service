@@ -1,2 +1,7 @@
-<p-button (click)="openHandler()" pButton type="button" icon="pi pi-arrow-right" size="small"/>
+<p-button (click)="toggleSidebar()" pButton type="button" icon="pi pi-arrow-right" size="small"></p-button>
 <p>home screen</p>
+
+<p-sidebar [(visible)]="sidebarVisible">
+  <h3>Sidebar</h3>
+  <p>Lorem ipsum dolor sit amet...</p>
+</p-sidebar>

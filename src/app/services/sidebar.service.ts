@@ -1,29 +1,29 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
+
+interface SidebarState {
+  isOpen: boolean;
+  flow: any;
+  profile: any;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class SidebarService {
+  private sidebarState: SidebarState = { isOpen: false, flow: null, profile: null };
+  stateChanged: EventEmitter<SidebarState> = new EventEmitter();
 
-  constructor() { 
-
+  getState(): SidebarState {
+    return this.sidebarState;
   }
 
-  public state = signal<{
-    isOpen: boolean,
-    content: string[],
-    flow: string
-  }>({
-    isOpen: false,
-    content: [],
-    flow: ''
-  });
-
-  public getState() {    
-    return this.state();
+  toggleSidebar(isOpen: boolean) {
+    this.sidebarState.isOpen = isOpen;
+    this.stateChanged.emit(this.sidebarState);
   }
 
-  public setOpen(open: boolean) { 
-    this.state().isOpen = open;
+  updateSidebarState(newState: Partial<SidebarState>) {
+    this.sidebarState = { ...this.sidebarState, ...newState };
+    this.stateChanged.emit(this.sidebarState);
   }
 }
