@@ -4,7 +4,6 @@ import { SidebarService } from '../../services/sidebar.service';
 import { ButtonModule } from 'primeng/button';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 
-
 @Component({
   selector: 'app-home-screen',
   standalone: true,

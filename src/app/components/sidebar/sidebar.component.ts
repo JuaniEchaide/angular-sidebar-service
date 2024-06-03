@@ -1,14 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { SidebarModule } from 'primeng/sidebar';
 import { SidebarService } from '../../services/sidebar.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [
-    SidebarModule
-  ],
+  imports: [SidebarModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
@@ -27,6 +25,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sidebarSubscription.unsubscribe();
+  }
+
+  onVisibleChange(event: boolean) {
+    this.isOpen = event;
+    this.sidebarService.toggleSidebar(event);
   }
 
   toggleSidebar() {
