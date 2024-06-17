@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, effect, signal, computed } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SidebarService } from '../../services/sidebar.service';
 import { ButtonModule } from 'primeng/button';
@@ -11,24 +11,19 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
   templateUrl: './home-screen.component.html',
   styleUrls: ['./home-screen.component.scss']
 })
-export class HomeScreenComponent implements OnInit, OnDestroy {
-  sidebarVisible: boolean = false;
-  private sidebarSubscription!: Subscription;
+export class HomeScreenComponent {
+  sidebarVisible = signal<boolean>(false);
+  public isOpen = computed(() => this.sidebarVisible.set(this.#sidebarService.state.isOpen));
 
-  constructor(private sidebarService: SidebarService) {}
+  #sidebarService: SidebarService = inject(SidebarService);
 
-  ngOnInit() {
-    this.sidebarVisible = this.sidebarService.getState().isOpen;
-    this.sidebarSubscription = this.sidebarService.stateChanged.subscribe(state => {
-      this.sidebarVisible = state.isOpen;
-    });
-  }
-
-  ngOnDestroy() {
-    this.sidebarSubscription.unsubscribe();
+  constructor() {
+    effect(() => {
+      console.log('sidebarVisible', this.sidebarVisible())
+    })
   }
 
   toggleSidebar() {
-    this.sidebarService.toggleSidebar(!this.sidebarVisible);
+    this.#sidebarService.toggle(!this.sidebarVisible());
   }
 }

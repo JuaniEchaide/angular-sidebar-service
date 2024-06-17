@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, effect, computed } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SidebarModule } from 'primeng/sidebar';
 import { SidebarService } from '../../services/sidebar.service';
@@ -12,29 +12,21 @@ import { DropdownModule } from 'primeng/dropdown';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit, OnDestroy {
-  isOpen: boolean = false;
-  private sidebarSubscription!: Subscription;
+export class SidebarComponent {
+  isOpen = computed(() => this.#sidebarService.state.isOpen);
+  #sidebarService = inject(SidebarService);
 
-  constructor(private sidebarService: SidebarService) {}
 
-  ngOnInit() {
-    this.isOpen = this.sidebarService.getState().isOpen;
-    this.sidebarSubscription = this.sidebarService.stateChanged.subscribe(state => {
-      this.isOpen = state.isOpen;
-    });
+  constructor() {
+    effect(() => {
+      console.log('isOpen', this.isOpen())
+    })
   }
-
-  ngOnDestroy() {
-    this.sidebarSubscription.unsubscribe();
-  }
-
   onVisibleChange(event: boolean) {
-    this.isOpen = event;
-    this.sidebarService.toggleSidebar(event);
+    this.#sidebarService.toggle(event);
   }
 
   toggleSidebar() {
-    this.sidebarService.toggleSidebar(!this.isOpen);
+    this.#sidebarService.toggle(!this.isOpen);
   }
 }

@@ -1,4 +1,4 @@
-<p-sidebar [(visible)]="isOpen" (visibleChange)="onVisibleChange($event)" position="right">
+<p-sidebar [visible]="isOpen()" (visibleChange)="onVisibleChange($event)" position="right">
   <h3>Filtros de búsqueda</h3>
   <app-client-search />
 </p-sidebar>
