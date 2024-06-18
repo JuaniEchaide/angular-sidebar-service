@@ -1,10 +1,11 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { FiltersOptionsComponent } from '../filters-options/filters-options.component';
 import { FilterSelection } from '../filters-options/interfaces/filter-selection.event';
+import { FilterService } from 'primeng/api';
 
 @Component({
   selector: 'app-client-search',
@@ -14,6 +15,8 @@ import { FilterSelection } from '../filters-options/interfaces/filter-selection.
   styleUrls: ['./client-search.component.scss']
 })
 export class ClientSearchComponent implements OnInit {
+  #filterService = inject(FilterService);
+
   public filters = signal<FilterSelection>({
     branch: '',
     activity: '',

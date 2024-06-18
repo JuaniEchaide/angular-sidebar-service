@@ -1,5 +1,6 @@
 <p-sidebar [visible]="isOpen()" (visibleChange)="onVisibleChange($event)" position="right">
   <h3>Filtros de búsqueda</h3>
+  <button pButton type="button" label="X" (click)="toggleSidebar()"></button>
   <app-client-search />
 </p-sidebar>
 |

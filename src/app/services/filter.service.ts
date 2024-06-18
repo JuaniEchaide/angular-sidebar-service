@@ -1,24 +1,6 @@
 import { Inject, Injectable, signal } from '@angular/core';
+import { Paginated, FilterSearchState, Filter } from '../models/domain';
 
-interface Filter {
-  type: string;
-  value: string;
-}
-
-interface FilterSearchState<T = any> {
-  isOpen: boolean;
-  flow: string;
-  profile: string;
-  filters: Filter[];
-  results: T[];
-}
-
-interface Paginated {
-  page: number;
-  per_page: number;
-  total: number;
-  [key: string]: any;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -81,7 +63,9 @@ export class FilterSearchStore<T = any, Q extends Paginated = Paginated> {
   }
 }
 
-export function createFilterStore<T, Q extends Paginated = Paginated>(mapper: (filters: Filter[]) => Q): FilterSearchStore<T, Q> {
+export function useFilterStore<T, Q extends Paginated = Paginated>(mapper: (filters: Filter[]) => Q): FilterSearchStore<T, Q> {
+  const state = new FilterSearchStore<T, Q>(mapper);
+
   return new FilterSearchStore<T, Q>(mapper);
 }
 
@@ -101,8 +85,3 @@ const mapper = (filters: Filter[]): MachineParams => {
     return acc;
   }, { page: 1, per_page: 10, total: 0 });
 };
-
-const machineFilterStore = createFilterStore<Machine, MachineParams>(mapper);
-
-const queryParams = machineFilterStore.mapFiltersToQueryParam();
-console.log(queryParams);

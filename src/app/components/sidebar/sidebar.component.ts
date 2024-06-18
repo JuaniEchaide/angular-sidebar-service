@@ -16,7 +16,6 @@ export class SidebarComponent {
   isOpen = computed(() => this.#sidebarService.state.isOpen);
   #sidebarService = inject(SidebarService);
 
-
   constructor() {
     effect(() => {
       console.log('isOpen', this.isOpen())
