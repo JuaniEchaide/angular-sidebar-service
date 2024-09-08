@@ -44,6 +44,7 @@ import { Component, input, Input } from '@angular/core';
 export class BaseBtnComponent {
 
   public label = input<string>('');
+  public onClick = input<void| null>(null);
   public btnClass = input<string>('');
   public disabled = input<boolean>(false);
 }

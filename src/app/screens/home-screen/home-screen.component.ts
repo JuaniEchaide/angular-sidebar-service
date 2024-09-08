@@ -11,7 +11,7 @@ import { SidebarService } from '../../services/filter-service/sidebar.service';
 })
 export class HomeScreenComponent {
   sidebarVisible = signal<boolean>(false);
-  public isOpen = computed(() => this.sidebarVisible.set(this.#sidebarService.state.isOpen));
+  public isOpen = computed(() => this.sidebarVisible.set(this.#sidebarService.sidebarState().isOpen));
 
   #sidebarService: SidebarService = inject(SidebarService);
 

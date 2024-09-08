@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, untracked } from '@angular/core';
 import { BaseBtnComponent } from "../../components/atoms/base-btn/base-btn.component";
 import { SidebarService } from '../../services/filter-service/sidebar.service';
 
@@ -8,7 +8,7 @@ import { SidebarService } from '../../services/filter-service/sidebar.service';
   imports: [BaseBtnComponent],
   template: `
     <div class="container">
-      <app-base-btn label="Hola" btnClass="primary"></app-base-btn>
+      <app-base-btn [label]="'Hola'" btnClass="primary" [onClick]="toggleSidebar()"></app-base-btn>
     </div>
   `,
   styles: [`
@@ -18,21 +18,19 @@ import { SidebarService } from '../../services/filter-service/sidebar.service';
       align-items: center;
       height: 95vh;
     }
-    .analyze-btn:hover {
-      background-color: var(--secondary-color);
-    }
   `]
 })
 export class ExampleScreenComponent {
   #sidebarService = inject(SidebarService);
   constructor() {
     effect(() => {
-      const isOpen = this.#sidebarService.state.isOpen;
+      untracked(() => console.log('Sidebar open state:', this.#sidebarService.sidebarState().isOpen));
+      const isOpen = this.#sidebarService.sidebarState().isOpen;
       console.log('Sidebar open state changed:', isOpen);
     });
   }
 
   toggleSidebar() {
-    this.#sidebarService.toggle(!this.#sidebarService.state.isOpen);
+    this.#sidebarService.toggle(!this.#sidebarService.sidebarState().isOpen);
   }
 }

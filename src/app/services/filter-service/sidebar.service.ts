@@ -18,10 +18,6 @@ export class SidebarService {
     filters: []
   });
 
-  get state(): SidebarState {
-    return this.sidebarState();
-  }
-
   toggle(isOpen: boolean) {
     this.sidebarState.update(value => ({ ...value, isOpen }));
   }
