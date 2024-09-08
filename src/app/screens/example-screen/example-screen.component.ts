@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { BaseBtnComponent } from "../../components/atoms/base-btn/base-btn.component";
+import { SidebarService } from '../../services/filter-service/sidebar.service';
 
 @Component({
   selector: 'app-example-screen',
@@ -23,5 +24,15 @@ import { BaseBtnComponent } from "../../components/atoms/base-btn/base-btn.compo
   `]
 })
 export class ExampleScreenComponent {
+  #sidebarService = inject(SidebarService);
+  constructor() {
+    effect(() => {
+      const isOpen = this.#sidebarService.state.isOpen;
+      console.log('Sidebar open state changed:', isOpen);
+    });
+  }
 
+  toggleSidebar() {
+    this.#sidebarService.toggle(!this.#sidebarService.state.isOpen);
+  }
 }

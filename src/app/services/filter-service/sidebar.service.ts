@@ -22,20 +22,19 @@ export class SidebarService {
     return this.sidebarState();
   }
 
-  toggle(isOpen: boolean, _flow?:string,  _profile?:string) {
-    this.sidebarState.update(value => ({ ...value, isOpen}));
+  toggle(isOpen: boolean) {
+    this.sidebarState.update(value => ({ ...value, isOpen }));
   }
 
   update(newState: SidebarState) {
-    this.sidebarState.update(value => ({ ...value, ...newState }));
+    this.sidebarState.set(newState);
   }
 
-  setFilters(filters: []) {
+  setFilters(filters: string[]) {
     this.sidebarState.update(value => ({ ...value, filters }));
   }
 
   clearFilters() {
     this.sidebarState.update(value => ({ ...value, filters: [] }));
   }
-
 }

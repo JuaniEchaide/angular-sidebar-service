@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { BaseBtnComponent } from "../../atoms/base-btn/base-btn.component";
 
 @Component({
@@ -16,13 +16,17 @@ import { BaseBtnComponent } from "../../atoms/base-btn/base-btn.component";
  styles: [``]
 })
 export class ConfirmDialogComponent {
-  public primaryText = signal<string>('');
-  public secondaryText = signal<string>('');
-  public primaryAction = signal<() => void>(() => { });
-  public secondaryAction = signal<() => void>(() => { });
+  public primaryText = signal<string>('Accept');
+  public secondaryText = signal<string>('Cancel');
+  public primaryAction = signal<() => void>(() => { console.log('Primary Action'); });
+  public secondaryAction = signal<() => void>(() => { console.log('Secondary Action'); });
 
-  public options = signal<{ label: string, class: string; action: () => void }[]>([
+  public options = computed(() => [
     { label: this.primaryText(), class: 'primary', action: this.primaryAction() },
     { label: this.secondaryText(), class: 'secondary', action: this.secondaryAction() },
-  ])
+  ]);
+
+  trackByIndex(index: number) {
+    return index;
+  }
 }
