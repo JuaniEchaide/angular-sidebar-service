@@ -1,16 +1,22 @@
 import { Component, OnInit, OnDestroy, inject, effect, computed } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SidebarModule } from 'primeng/sidebar';
-import { SidebarService } from '../../services/sidebar.service';
-import { ClientSearchComponent } from '../client-search/client-search.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { SidebarService } from '../../../services/filter-service/sidebar.service';
+import { ClientSearchComponent } from '../client-search/client-search.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [SidebarModule, ClientSearchComponent, DropdownModule],
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  template: `
+    <p-sidebar [visible]="isOpen()" (visibleChange)="onVisibleChange($event)" position="right">
+      <h3>Filtros de búsqueda</h3>
+      <button pButton type="button" label="X" (click)="toggleSidebar()"></button>
+      <app-client-search />
+    </p-sidebar>
+|`,
+  styles: [``]
 })
 export class SidebarComponent {
   isOpen = computed(() => this.#sidebarService.state.isOpen);
@@ -26,6 +32,7 @@ export class SidebarComponent {
   }
 
   toggleSidebar() {
-    this.#sidebarService.toggle(!this.isOpen);
+    this.#sidebarService.toggle(!this.isOpen());
   }
+  
 }

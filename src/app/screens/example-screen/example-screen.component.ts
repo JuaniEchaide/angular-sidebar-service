@@ -7,7 +7,7 @@ import { BaseBtnComponent } from "../../components/atoms/base-btn/base-btn.compo
   imports: [BaseBtnComponent],
   template: `
     <div class="container">
-      <app-base-btn label="Analyze" btnClass="primary"></app-base-btn>
+      <app-base-btn label="Hola" btnClass="primary"></app-base-btn>
     </div>
   `,
   styles: [`
@@ -15,7 +15,7 @@ import { BaseBtnComponent } from "../../components/atoms/base-btn/base-btn.compo
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: 95vh;
     }
     .analyze-btn:hover {
       background-color: var(--secondary-color);
