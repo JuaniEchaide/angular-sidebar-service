@@ -1,5 +1,5 @@
 import { Inject, Injectable, signal } from '@angular/core';
-import { Paginated, FilterSearchState, Filter } from '../models/domain';
+import { Paginated, FilterSearchState, Filter } from '../../models/domain';
 
 
 @Injectable({

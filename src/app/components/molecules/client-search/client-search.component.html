@@ -1,0 +1,26 @@
+<div class="flex flex-row justify-content-center align-items-center w-full">
+  <div class="input-container flex flex-row">
+    <input type="text" pInputText formControlName="input" />
+    <p-button pButton label="Buscar" class="option_button" (onClick)="onSearch()"></p-button>
+  </div>
+<app-filters-options (filtersSelection)="onFiltersSelection($event)"/>
+  <hr>
+  <div class="selects_container">
+    <p-button pButton label="OK" class="option_button" (onClick)="onSearch()"></p-button>
+    <p-button pButton label="Cancelar" class="option_button" (onClick)="onCancelButton()"></p-button>
+  </div>
+</div>
+<style>
+  .option_button {
+    width: 140px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .selects_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

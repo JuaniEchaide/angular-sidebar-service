@@ -1,4 +1,4 @@
-<div formcontrolGroupName="searchForm" class="flex flex-column align-items-center justify-content-center">
+<div formcontrolGroupName="searchForm" class="filter_options_container">
     <p-dropdown formControlName="category"
     [options]="categoryOptions"/>
     <p-dropdown formControlName="branch"    
@@ -6,3 +6,9 @@
     <p-dropdown formControlName="activity"
     [options]="activityOptions"/>
   </div>
+  <style>
+    .filter_options_container {
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
